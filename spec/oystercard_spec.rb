@@ -16,6 +16,14 @@ describe OysterCard do
     	expect(card.balance).to eq 10
     end
 
+    it { expect(card).to respond_to(:deduct).with(1).argument }
+
+    it 'expects fares to be deducted from card balance' do
+    	card.top_up(10)
+    	card.deduct(5)
+    	expect(card.balance).to eq 5
+    end
+
     context 'error checks' do
 
       it 'should raise error when exceeding maximum balance' do
