@@ -34,4 +34,37 @@ describe OysterCard do
     end
 
   end
+
+  describe 'Touch functionality' do
+
+    before(:each) do
+      card.touch_in
+    end
+
+    it { expect(card).to respond_to(:touch_in) }
+
+    it 'should return true if touched in' do
+      expect(card.in_use).to eq true
+    end
+
+    it { expect(card).to respond_to(:touch_out) }
+
+    it 'should return false if touched out' do
+      card.touch_out
+      expect(card.in_use).to eq false
+    end
+
+    it { expect(card).to respond_to(:in_journey?) }
+
+    it 'should return true if touched in' do
+      expect(card).to be_in_journey
+    end
+
+    it 'should return false if touched out' do
+      card.touch_out
+      expect(card).not_to be_in_journey
+    end
+
+
+  end
 end
