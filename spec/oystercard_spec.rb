@@ -16,5 +16,14 @@ describe OysterCard do
     	expect(card.balance).to eq 10
     end
 
+    context 'error checks' do
+
+      it 'should raise error when exceeding maximum balance' do
+        message = "Maximum balance of #{OysterCard::MAXIMUM_BALANCE} cannot be exeeded"
+        expect {card.top_up(100)}.to raise_error(message)
+      end
+
+    end
+
   end
 end
