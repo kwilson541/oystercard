@@ -27,8 +27,13 @@ describe OysterCard do
     context 'error checks' do
 
       it 'should raise error when exceeding maximum balance' do
-        message = "Maximum balance of #{OysterCard::MAXIMUM_BALANCE} cannot be exeeded"
-        expect {card.top_up(100)}.to raise_error(message)
+        message = "Maximum balance of £#{OysterCard::MAXIMUM_BALANCE} cannot be exeeded"
+        expect {card.top_up(100)}.to raise_error message
+      end
+
+      it 'should raise error when touching in with less than minimum balance' do
+      	message = "Insufficient funds, minimum fare is £#{OysterCard::MINIMUM_BALANCE}"
+      	expect {card.touch_in}.to raise_error message
       end
 
     end
@@ -38,6 +43,7 @@ describe OysterCard do
   describe 'Touch functionality' do
 
     before(:each) do
+      card.top_up(10)
       card.touch_in
     end
 
