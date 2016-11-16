@@ -18,17 +18,15 @@ class Oystercard
 
   def touch_in(entry_station)
     raise "Cannot touch in: minimum required balance is £#{MINIMUM_JOURNEY}, please top up." if minimum?
-    @exit_station = nil
     @entry_station = entry_station
-    @journey[:journey_start] = entry_station
+    @exit_station = nil
   end
 
   def touch_out(exit_station)
     deduct(MINIMUM_JOURNEY)
-    @entry_station = nil
     @exit_station = exit_station
-    @journey[:journey_end] = exit_station
     store_journey
+    @entry_station = nil
   end
 
   def in_journey?
@@ -48,14 +46,9 @@ class Oystercard
       @balance + top_up_value > MAXIMUM_BALANCE
     end
 
-    def journey
-      @journey = { :journey_start => nil, :journey_end => nil }
-    end
-
     def store_journey
-      @journey_history << @journey
-      @journey[:journey_start] = nil
-      @journey[:journey_end] = nil
+      current_journey = { :journey_start => @entry_station, :journey_end => @exit_station }
+      @journey_history << current_journey
     end
 
 end

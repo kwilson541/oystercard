@@ -50,8 +50,6 @@ describe Oystercard do
     end
 
     it "resets entry station back to nil" do
-      # oystercard.top_up(2)
-      # oystercard.touch_in(entry_station)
       oystercard.touch_out(exit_station)
       expect(oystercard.entry_station).to eq nil
     end
@@ -59,8 +57,6 @@ describe Oystercard do
     it { is_expected.to respond_to(:touch_out).with(1).argument }
 
     it "stores the exit station on touch out" do
-      # oystercard.top_up(2)
-      # oystercard.touch_in(entry_station)
       oystercard.touch_out(exit_station)
       expect(oystercard.exit_station).to eq exit_station
     end

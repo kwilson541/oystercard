@@ -34,11 +34,9 @@ describe "User Stories" do
   # I need to touch in and out.
   it "supports touch in and touch out" do
     card = Oystercard.new
-    entry_station = "Aldgate"
-    exit_station = "Hammersmith"
     card.top_up(1)
-    card.touch_in(entry_station)
-    card.touch_out(exit_station)
+    card.touch_in("Aldgate")
+    card.touch_out("Hammersmith")
     expect{card}.to_not raise_error
   end
 
@@ -47,8 +45,7 @@ describe "User Stories" do
   #I need to have the minimum amount (£1) for a single journey.
   it "so that I can touch in, the balance amount must not be below the minimum journey amount of £1" do
     card = Oystercard.new
-    entry_station = "Aldgate"
-    expect{card.touch_in(entry_station)}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
+    expect{card.touch_in("Aldgate")}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
   end
 
   # In order to pay for my journey
@@ -56,11 +53,9 @@ describe "User Stories" do
   # When my journey is complete, I need the correct amount deducted from my card
   it "so that i pay for a journey the minimum amount has to be deducted at touch out" do
     card = Oystercard.new
-    entry_station = "Aldgate"
-    exit_station = "Hammersmith"
     card.top_up(2)
-    card.touch_in(entry_station)
-    card.touch_out(exit_station)
+    card.touch_in("Aldgate")
+    card.touch_out("Hammersmith")
     expect(card.balance).to eq 1
   end
 
@@ -69,10 +64,20 @@ describe "User Stories" do
   #I need to know where I've travelled from
   it 'stores the entry station on the card' do
     card = Oystercard.new
-    entry_station = "Aldgate"
     card.top_up(2)
-    card.touch_in(entry_station)
-    expect(card.entry_station).to eq entry_station
+    card.touch_in("Aldgate")
+    expect(card.entry_station).to eq "Aldgate"
+  end
+
+  # In order to know where I have been
+  # As a customer
+  # I want to see to all my previous trips
+  it 'stores a journey history on the card' do
+    card = Oystercard.new
+    card.top_up(2)
+    card.touch_in("Aldgate")
+    card.touch_out("Hammersmith")
+    expect(card.journey_history).to eq [{:journey_start => "Aldgate", :journey_end => "Hammersmith"}]
   end
 
 end
