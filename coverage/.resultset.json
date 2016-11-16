@@ -262,6 +262,29 @@
         null,
         null
       ],
+      "/Users/amanda/Desktop/makers_academy/weekly_challenges/oyster_card/spec/journey_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        2,
+        null,
+        2,
+        null,
+        null
+      ],
+      "/Users/amanda/Desktop/makers_academy/weekly_challenges/oyster_card/lib/journey.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null,
+        null
+      ],
       "/Users/amanda/Desktop/makers_academy/weekly_challenges/oyster_card/spec/station_spec.rb": [
         1,
         null,
@@ -280,6 +303,6 @@
         null
       ]
     },
-    "timestamp": 1479312185
+    "timestamp": 1479314578
   }
 }
