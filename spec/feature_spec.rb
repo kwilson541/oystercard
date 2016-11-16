@@ -1,4 +1,5 @@
 require "card"
+require "station"
 
 describe "User Stories" do
 
@@ -79,5 +80,14 @@ describe "User Stories" do
     card.touch_out("Hammersmith")
     expect(card.journey_history).to eq [{:journey_start => "Aldgate", :journey_end => "Hammersmith"}]
   end
+
+  #In order to know how far I have travelled
+  #As a customer
+  #I want to know what zone a station is in
+  it 'returns the zone of a station' do
+    station = Station.new("Aldgate", 1)
+    expect(station.zone).to eq 1
+  end
+
 
 end
