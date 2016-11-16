@@ -35,9 +35,10 @@ describe "User Stories" do
   it "supports touch in and touch out" do
     card = Oystercard.new
     entry_station = "Aldgate"
+    exit_station = "Hammersmith"
     card.top_up(1)
     card.touch_in(entry_station)
-    card.touch_out
+    card.touch_out(exit_station)
     expect{card}.to_not raise_error
   end
 
@@ -56,9 +57,10 @@ describe "User Stories" do
   it "so that i pay for a journey the minimum amount has to be deducted at touch out" do
     card = Oystercard.new
     entry_station = "Aldgate"
+    exit_station = "Hammersmith"
     card.top_up(2)
     card.touch_in(entry_station)
-    card.touch_out
+    card.touch_out(exit_station)
     expect(card.balance).to eq 1
   end
 
