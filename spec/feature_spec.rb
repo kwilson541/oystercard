@@ -34,8 +34,9 @@ describe "User Stories" do
   # I need to touch in and out.
   it "supports touch in and touch out" do
     card = Oystercard.new
+    entry_station = "Aldgate"
     card.top_up(1)
-    card.touch_in
+    card.touch_in(entry_station)
     card.touch_out
     expect{card}.to_not raise_error
   end
@@ -45,7 +46,8 @@ describe "User Stories" do
   #I need to have the minimum amount (£1) for a single journey.
   it "so that I can touch in, the balance amount must not be below the minimum journey amount of £1" do
     card = Oystercard.new
-    expect{card.touch_in}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
+    entry_station = "Aldgate"
+    expect{card.touch_in(entry_station)}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
   end
 
   # In order to pay for my journey
@@ -53,10 +55,22 @@ describe "User Stories" do
   # When my journey is complete, I need the correct amount deducted from my card
   it "so that i pay for a journey the minimum amount has to be deducted at touch out" do
     card = Oystercard.new
+    entry_station = "Aldgate"
     card.top_up(2)
-    card.touch_in
+    card.touch_in(entry_station)
     card.touch_out
     expect(card.balance).to eq 1
+  end
+
+  #In order to pay for my journey
+  #As a customer
+  #I need to know where I've travelled from
+  it 'stores the entry station on the card' do
+    card = Oystercard.new
+    entry_station = "Aldgate"
+    card.top_up(2)
+    card.touch_in(entry_station)
+    expect(card.entry_station).to eq entry_station
   end
 
 end
