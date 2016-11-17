@@ -53,9 +53,7 @@ describe Oystercard do
     end
 
     it "should deduct the minimum journey ammount" do
-      # allow(journey).to receive(:end_journey)
-      oystercard.top_up(2)
-      oystercard.touch_in(entry_station)
+      allow(journey).to receive(:end_journey)
       expect{oystercard.touch_out(exit_station)}.to change{oystercard.balance}.by(-1)
     end
 
