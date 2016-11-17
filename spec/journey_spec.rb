@@ -10,6 +10,11 @@ describe Journey do
 
 	it { is_expected.to respond_to(:start_journey) }
 
+	it 'is expected to start a journey' do
+    	journey.start_journey(entry_station)
+    	expect(journey.entry_station).to eq entry_station
+  	end
+
 	it 'is expected to end a journey' do
 		journey.end_journey(exit_station)
   		expect(journey.exit_station).to eq exit_station

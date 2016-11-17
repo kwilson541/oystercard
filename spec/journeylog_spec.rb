@@ -2,11 +2,11 @@ require 'journeylog'
 
 describe JourneyLog do
 
-  subject(:journeylog) { described_class.new }
+  subject(:journey_log) { described_class.new }
 
-  it 'is expected to start a journey' do
-    journeylog.start(entry_station)
-    expect(journeylog.entry_station).to eq entry_station
+  it 'creates empty journey log on instantiation' do
+  	expect(journey_log.journeys).to eq []
   end
+
 
 end
