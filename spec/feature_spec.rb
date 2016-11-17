@@ -1,5 +1,6 @@
 require "card"
 require "station"
+require "journey"
 
 describe "User Stories" do
 
@@ -67,7 +68,7 @@ describe "User Stories" do
     card = Oystercard.new
     card.top_up(2)
     card.touch_in("Aldgate")
-    expect(card.entry_station).to eq "Aldgate"
+    expect(card.journey.entry_station).to eq "Aldgate"
   end
 
   # In order to know where I have been
