@@ -6,8 +6,6 @@ describe Journey do
 	let(:entry_station) { double(:entry_station) }
 	let(:exit_station) { double(:exit_station) }
 
-	it { is_expected.to respond_to(:store_journey) }
-
     it { is_expected.to respond_to(:fare) }
 
     it 'expects penalty fare for no entry station' do
