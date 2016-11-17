@@ -31,6 +31,12 @@ describe Oystercard do
 
   describe "when using touch in" do
 
+    it "should create a new journey" do
+      oystercard.top_up(10)
+      oystercard.touch_in(entry_station)
+      expect(oystercard.journey).not_to eq nil
+    end
+
     it "should raise an error if balance amount is below minimum journey amount of £1" do
       expect{oystercard.touch_in(entry_station)}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
     end
@@ -40,6 +46,11 @@ describe Oystercard do
   end
 
   describe "when using touch out" do
+
+    it "should create a new journey if not touched in" do
+      oystercard.touch_out(exit_station)
+      expect(oystercard.journey).not_to eq nil
+    end
 
     it "should deduct the minimum journey ammount" do
       # allow(journey).to receive(:end_journey)

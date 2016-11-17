@@ -26,6 +26,19 @@ describe Journey do
     	expect(journey.complete_journey).to eq ({ :journey_start => entry_station, :journey_end => exit_station })
     end
 
+    it { is_expected.to respond_to(:fare) }
+
+    it 'expects penalty fare for no entry station' do
+    	journey.end_journey(exit_station)
+    	expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
+
+    it 'expects a minimum fare for tocuhing in and touching out' do
+    	journey.start_journey(entry_station)
+    	journey.end_journey(exit_station)
+    	expect(journey.fare).to eq 1
+    end
+
 
 	describe 'when asking if it is in journey' do
 

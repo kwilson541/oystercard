@@ -25,6 +25,7 @@ class Oystercard
   end
 
   def touch_out(exit_station)
+    new_journey if journey == nil
     journey.end_journey(exit_station)
     store_journey
     deduct(MINIMUM_JOURNEY)
