@@ -68,7 +68,7 @@ describe "User Stories" do
     card = Oystercard.new
     card.top_up(2)
     card.touch_in("Aldgate")
-    expect(card.journey.entry_station).to eq "Aldgate"
+    expect(card.journey_log.entry_station).to eq "Aldgate"
   end
 
   # In order to know where I have been
@@ -79,7 +79,7 @@ describe "User Stories" do
     card.top_up(2)
     card.touch_in("Aldgate")
     card.touch_out("Hammersmith")
-    expect(card.journey_history).to eq [{:journey_start => "Aldgate", :journey_end => "Hammersmith"}]
+    expect(card.journey_log.journeys).to eq [{:journey_start => "Aldgate", :journey_end => "Hammersmith"}]
   end
 
   #In order to know how far I have travelled

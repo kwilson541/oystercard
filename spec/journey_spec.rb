@@ -8,24 +8,6 @@ describe Journey do
 
 	it { is_expected.to respond_to(:store_journey) }
 
-	it { is_expected.to respond_to(:start_journey) }
-
-	it 'is expected to start a journey' do
-    	journey.start_journey(entry_station)
-    	expect(journey.entry_station).to eq entry_station
-  	end
-
-	it 'is expected to end a journey' do
-		journey.end_journey(exit_station)
-  		expect(journey.exit_station).to eq exit_station
-	end
-
-    it 'expects to complete a journey' do
-    	journey.start_journey(entry_station)
-    	journey.end_journey(exit_station)
-    	expect(journey.complete_journey).to eq ({ :journey_start => entry_station, :journey_end => exit_station })
-    end
-
     it { is_expected.to respond_to(:fare) }
 
     it 'expects penalty fare for no entry station' do
@@ -38,7 +20,6 @@ describe Journey do
     	journey.end_journey(exit_station)
     	expect(journey.fare).to eq 1
     end
-
 
 	describe 'when asking if it is in journey' do
 
