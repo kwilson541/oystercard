@@ -6,8 +6,8 @@ class Oystercard
 
   attr_reader :balance, :entry_station, :exit_station, :journey_history
 
-  def initialize(balance=DEFAULT_BALANCE)
-    @balance = balance
+  def initialize
+    @balance = DEFAULT_BALANCE
     @journey_history = []
   end
 
