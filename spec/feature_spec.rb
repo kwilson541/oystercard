@@ -45,7 +45,7 @@ describe "User Stories" do
   #In order to pay for my journey
   #As a customer
   #I need to have the minimum amount (£1) for a single journey.
-  it "so that I can touch in, the balance amount must not be below the minimum journey amount of £1" do
+  it "so that I can touch in, the balance amount must not be below the minimum journey amount" do
     card = Oystercard.new(Journey)
     expect{card.touch_in("Aldgate")}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
   end
