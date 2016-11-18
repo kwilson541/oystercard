@@ -20,12 +20,14 @@ class Oystercard
   end
 
   def touch_in(entry_station)
+    deduct(@journey.fare) && store_journey if !touched_out? && @journey != nil
     raise "Cannot touch in: minimum required balance is £#{MINIMUM_JOURNEY}, please top up." if minimum?
     new_journey
     @journey.start_journey(entry_station)
   end
 
   def touch_out(exit_station)
+    new_journey if !touched_in?
     @journey.end_journey(exit_station)
     deduct(@journey.fare)
     store_journey
@@ -52,6 +54,14 @@ class Oystercard
     def store_journey
       current_journey = { :journey_start => @journey.entry_station, :journey_end => @journey.exit_station }
       @journey_history << current_journey
+    end
+
+    def touched_out?
+      @journey != nil && @journey.complete? == true
+    end
+
+    def touched_in?
+      @journey != nil && @journey.complete? == false
     end
 
 end

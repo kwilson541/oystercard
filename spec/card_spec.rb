@@ -43,7 +43,6 @@ describe Oystercard do
 		it 'should deduct the fare for a complete journey' do
     		oystercard.top_up(2)
     		oystercard.touch_in(entry_station)
-    		oystercard.touch_out(exit_station)
     		expect{oystercard.touch_out(exit_station)}.to change{oystercard.balance}.by(-1)
 		end
 
