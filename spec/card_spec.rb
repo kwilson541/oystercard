@@ -2,7 +2,7 @@ require 'card'
 
 describe Oystercard do
 
-	subject(:oystercard) { described_class.new }
+	subject(:oystercard) { described_class.new(Journey) }
 	let(:entry_station) { double(:entry_station) }
 	let(:exit_station) { double(:exit_station) }
 
@@ -36,50 +36,20 @@ describe Oystercard do
 
     	it { is_expected.to respond_to(:touch_in).with(1).argument }
 
-    	it 'resets exit station back to nil' do
-	    	oystercard.top_up(2)
-	    	oystercard.touch_in(entry_station)
-	    	oystercard.touch_out(exit_station)
-	    	oystercard.touch_in(entry_station)
-	    	expect(oystercard.exit_station).to eq nil
-    	end
-
 	end
 
 	describe '#touch_out' do
 
 		it 'should deduct the fare for a complete journey' do
     		oystercard.top_up(2)
+    		oystercard.touch_in(entry_station)
+    		oystercard.touch_out(exit_station)
     		expect{oystercard.touch_out(exit_station)}.to change{oystercard.balance}.by(-1)
 		end
 
-    	it 'resets entry station back to nil' do
-    		oystercard.touch_out(exit_station)
-    		expect(oystercard.entry_station).to eq nil
-    	end
-
     	it { is_expected.to respond_to(:touch_out).with(1).argument }
 
-    	it 'stores the exit station on touch out' do
-    		oystercard.touch_out(exit_station)
-    		expect(oystercard.exit_station).to eq exit_station
-    	end
-
   	end
-
-	describe '#in_journey?' do
-    	it 'it should be true if card has touched in' do
-    		oystercard.top_up(1)
-    		oystercard.touch_in(entry_station)
-    		expect(oystercard.in_journey?).to eq true
-    	end
-    
-    	it 'should be false if card has touched out' do
-    		oystercard.touch_out(exit_station)
-    		expect(oystercard.in_journey?).to be false
-    	end
-
-  end
 
 	describe '#journey_history' do
 

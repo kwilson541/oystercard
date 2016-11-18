@@ -7,7 +7,7 @@ describe "User Stories" do
   # As a customer
   # I want money on my card
   it "card should be able to hold money" do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     card.top_up(5)
     expect{card.balance}.not_to raise_error
   end
@@ -16,7 +16,7 @@ describe "User Stories" do
   # As a customer
   # I want to add money to my card
   it "should be able to add money to the card" do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     card.top_up(5)
     expect(card.balance).to eq 5
   end
@@ -25,7 +25,7 @@ describe "User Stories" do
   # As a customer
   # I don't want to put too much money on my card
   it "doesn't allow to exceed the maximum balance value of £90" do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     card.top_up(89)
     expect{card.top_up(2)}.to raise_error "Can't exceed maximum balance of £90."
   end
@@ -35,7 +35,7 @@ describe "User Stories" do
   # As a customer
   # I need to touch in and out.
   it "supports touch in and touch out" do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     card.top_up(1)
     card.touch_in("Aldgate")
     card.touch_out("Hammersmith")
@@ -46,7 +46,7 @@ describe "User Stories" do
   #As a customer
   #I need to have the minimum amount (£1) for a single journey.
   it "so that I can touch in, the balance amount must not be below the minimum journey amount of £1" do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     expect{card.touch_in("Aldgate")}.to raise_error "Cannot touch in: minimum required balance is £1, please top up."
   end
 
@@ -54,7 +54,7 @@ describe "User Stories" do
   # As a customer
   # When my journey is complete, I need the correct amount deducted from my card
   it "so that i pay for a journey the minimum amount has to be deducted at touch out" do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     card.top_up(2)
     card.touch_in("Aldgate")
     card.touch_out("Hammersmith")
@@ -64,18 +64,18 @@ describe "User Stories" do
   #In order to pay for my journey
   #As a customer
   #I need to know where I've travelled from
-  it 'stores the entry station on the card' do
-    card = Oystercard.new
+  it 'knows the entry station' do
+    card = Oystercard.new(Journey)
     card.top_up(2)
     card.touch_in("Aldgate")
-    expect(card.entry_station).to eq "Aldgate"
+    expect(card.journey.entry_station).to eq "Aldgate"
   end
 
   # In order to know where I have been
   # As a customer
   # I want to see to all my previous trips
   it 'stores a journey history on the card' do
-    card = Oystercard.new
+    card = Oystercard.new(Journey)
     card.top_up(2)
     card.touch_in("Aldgate")
     card.touch_out("Hammersmith")
